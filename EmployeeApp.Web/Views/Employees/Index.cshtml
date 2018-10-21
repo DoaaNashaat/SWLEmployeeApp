@@ -1,0 +1,71 @@
+﻿@model IEnumerable<EmployeeApp.Models.ViewModel.VMEmployee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employees</h2>
+
+<p style="float:right">
+    @Html.ActionLink("Create New", "Create")
+</p>
+@{ Html.BeginForm("MultipleDelete", "Employees", FormMethod.Post, new { name = "tableForm" }); }
+<table class="table">
+    <tr>
+        <th>
+            Select
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="checkbox" name="deleteIDs" value="@item.EmployeeID" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeID }) |
+           
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeID })
+        </td>
+    </tr>
+}
+
+</table>
+  <!-- Section for buttons -->
+<div class="actions">
+    <a href="javascript:(function(){document.tableForm.submit();return void(0);})()">
+        Delete selected employees
+    </a>
+</div>
+@{ Html.EndForm(); }
